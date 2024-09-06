@@ -18,3 +18,11 @@ db.database=<Value for PGDATABASE>
 
 - Run `flyway -cleanDisabled=false clean` in the terminal. To clear all previous data.
 - Later, run `flyway migrate` when the migration files are setup.
+
+## Todo's
+- [x] Create schema and dummy data
+- [x] Create test for the model layer
+- [x] Core specs
+- [ ] Extension; update schema
+- [ ] Extension; specs
+- [ ] Refactor database connection logic & functions
