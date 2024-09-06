@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import org.postgresql.ds.PGSimpleDataSource;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 public class EmployeeRepository {
 
@@ -86,5 +88,56 @@ public class EmployeeRepository {
         }
         return employees;
     }
+
+    public Employee getSpecific(long id) throws SQLException {
+        PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM Employee WHERE id = ?");
+        statement.setLong(1, id);
+        ResultSet resultSet = statement.executeQuery();
+        Employee employee = null;
+        if (resultSet.next()) {
+            employee = new Employee(
+                    resultSet.getLong("id"),
+                    resultSet.getString("name"),
+                    resultSet.getString("jobName"),
+                    resultSet.getString("salaryGrade"),
+                    resultSet.getString("department")
+            );
+        }
+        return employee;
+    }
+
+    public Employee update(long id, Employee employee) throws SQLException {
+        String SQL = "UPDATE Employee " +
+                "SET name = ? ," +
+                "jobName = ? ," +
+                "salaryGrade = ? ," +
+                "department = ? " +
+                "WHERE id = ? ";
+        PreparedStatement statement = this.connection.prepareStatement(SQL);
+        statement.setString(1, employee.getName());
+        statement.setString(2, employee.getJobName());
+        statement.setString(3, employee.getSalaryGrade());
+        statement.setString(4, employee.getDepartment());
+        statement.setLong(5, id);
+        Employee updatedEmployee = null;
+        if (statement.executeUpdate() > 0) {
+            updatedEmployee = this.getSpecific(id);
+        }
+        return updatedEmployee;
+    }
+
+    public Employee delete(long id) throws SQLException {
+        String SQL = "DELETE FROM Employee WHERE id = ?";
+        PreparedStatement statement = this.connection.prepareStatement(SQL);
+        Employee deletedEmployee = null;
+        deletedEmployee = this.getSpecific(id);
+        statement.setLong(1, id);
+        if (statement.executeUpdate() == 0) {
+            deletedEmployee = null;
+        }
+        return deletedEmployee;
+    }
+
+
 
 }
