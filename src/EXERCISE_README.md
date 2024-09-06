@@ -15,3 +15,6 @@ db.user=<Value for PGUSER>
 db.password=<Value for PGPASSWORD>
 db.database=<Value for PGDATABASE>
 ```
+
+- Run `flyway -cleanDisabled=false clean` in the terminal. To clear all previous data.
+- Later, run `flyway migrate` when the migration files are setup.
