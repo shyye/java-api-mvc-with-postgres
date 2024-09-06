@@ -1,4 +1,4 @@
-INSERT INTO employee (name, jobName, salaryGrade, department)
+INSERT INTO employees (name, jobName, salaryGrade, department)
 VALUES
 ('Ada Lovelace', 'Ada LL', 'high', 'Computer Science'),
 ('Charles Babbage', 'Charles B.', 'high', 'Mechanical Engineering'),

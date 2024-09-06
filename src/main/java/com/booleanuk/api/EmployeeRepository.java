@@ -49,7 +49,7 @@ public class EmployeeRepository {
     }
 
     public Employee create(Employee newEmployee) throws SQLException {
-        String sql = "INSERT INTO Employee(name, jobName, salaryGrade, department) VALUES(?, ?, ?, ?)";
+        String sql = "INSERT INTO employees(name, jobName, salaryGrade, department) VALUES(?, ?, ?, ?)";
         PreparedStatement statement = this.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, newEmployee.getName());
         statement.setString(2, newEmployee.getJobName());
@@ -74,7 +74,7 @@ public class EmployeeRepository {
 
     public List<Employee> getAll() throws SQLException {
         List<Employee> employees = new ArrayList<>();
-        PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM employee");
+        PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM employees");
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
             Employee employee = new Employee(
@@ -90,7 +90,7 @@ public class EmployeeRepository {
     }
 
     public Employee getSpecific(long id) throws SQLException {
-        PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM Employee WHERE id = ?");
+        PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM employees WHERE id = ?");
         statement.setLong(1, id);
         ResultSet resultSet = statement.executeQuery();
         Employee employee = null;
@@ -107,7 +107,7 @@ public class EmployeeRepository {
     }
 
     public Employee update(long id, Employee employee) throws SQLException {
-        String SQL = "UPDATE Employee " +
+        String SQL = "UPDATE employees " +
                 "SET name = ? ," +
                 "jobName = ? ," +
                 "salaryGrade = ? ," +
@@ -127,7 +127,7 @@ public class EmployeeRepository {
     }
 
     public Employee delete(long id) throws SQLException {
-        String SQL = "DELETE FROM Employee WHERE id = ?";
+        String SQL = "DELETE FROM employees WHERE id = ?";
         PreparedStatement statement = this.connection.prepareStatement(SQL);
         Employee deletedEmployee = null;
         deletedEmployee = this.getSpecific(id);

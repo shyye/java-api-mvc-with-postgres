@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS employee (
+CREATE TABLE IF NOT EXISTS employees (
     id serial PRIMARY KEY,
     name TEXT NOT NULL,
     jobName TEXT NOT NULL,

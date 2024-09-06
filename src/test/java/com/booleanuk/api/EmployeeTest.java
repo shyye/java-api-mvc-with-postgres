@@ -22,6 +22,7 @@ public class EmployeeTest {
         int currentSize = repository.getAll().size();
         repository.create(employee);
         Assertions.assertEquals(currentSize+1, repository.getAll().size());
+        repository.delete(employee.getId());
     }
 
     @Test
@@ -37,7 +38,6 @@ public class EmployeeTest {
         Employee tmp_employee = repository.create(employee);
         int currentSize = repository.getAll().size();
         repository.delete(tmp_employee.getId());
-        repository.delete(tmp_employee.getId());
         Assertions.assertEquals(currentSize-1, repository.getAll().size());
     }
 
@@ -51,7 +51,7 @@ public class EmployeeTest {
                 "10",
                 "department"
         );
-        Employee updatedEmployee = repository.update(7, employee);
+        Employee updatedEmployee = repository.update(6, employee);
         Assertions.assertEquals("UPDATE TEST", updatedEmployee.getName());
     }
 }
