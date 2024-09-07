@@ -1,14 +1,14 @@
-package com.booleanuk.api;
+package com.booleanuk.api.employees;
 
 public class Employee {
 
     private long id;
     private String name;
     private String jobName;
-    private String salaryGrade;
-    private String department;
+    private int salaryGrade;
+    private int department;
 
-    public Employee(long id, String name, String jobName, String salaryGrade, String department) {
+    public Employee(long id, String name, String jobName, int salaryGrade, int department) {
         this.id = id;
         this.name = name;
         this.jobName = jobName;
@@ -40,19 +40,19 @@ public class Employee {
         this.jobName = jobName;
     }
 
-    public String getSalaryGrade() {
+    public int getSalaryGrade() {
         return salaryGrade;
     }
 
-    public void setSalaryGrade(String salaryGrade) {
+    public void setSalaryGrade(int salaryGrade) {
         this.salaryGrade = salaryGrade;
     }
 
-    public String getDepartment() {
+    public int getDepartment() {
         return department;
     }
 
-    public void setDepartment(String department) {
+    public void setDepartment(int department) {
         this.department = department;
     }
 }

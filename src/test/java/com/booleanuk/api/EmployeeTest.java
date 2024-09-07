@@ -1,5 +1,7 @@
 package com.booleanuk.api;
 
+import com.booleanuk.api.employees.Employee;
+import com.booleanuk.api.employees.EmployeeRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

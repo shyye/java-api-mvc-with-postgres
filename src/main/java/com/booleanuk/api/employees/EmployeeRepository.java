@@ -1,51 +1,20 @@
-package com.booleanuk.api;
+package com.booleanuk.api.employees;
 
 import javax.sql.DataSource;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
-import org.postgresql.ds.PGSimpleDataSource;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+
+import com.booleanuk.api.DatabaseResource;
 
 public class EmployeeRepository {
 
     DataSource datasource;
-    String dbUser;
-    String dbURL;
-    String dbPassword;
-    String dbDatabase;
     Connection connection;
 
     public EmployeeRepository() throws SQLException {
-        this.getDatabaseCredentials();
-        this.datasource = this.createDataSource();
+        this.datasource = DatabaseResource.getInstance().datasource;
         this.connection = this.datasource.getConnection();
-    }
-
-    private void getDatabaseCredentials() {
-        try (InputStream input = new FileInputStream("src/main/resources/config.properties")) {
-            Properties prop = new Properties();
-            prop.load(input);
-            this.dbUser = prop.getProperty("db.user");
-            this.dbURL = prop.getProperty("db.url");
-            this.dbPassword = prop.getProperty("db.password");
-            this.dbDatabase = prop.getProperty("db.database");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private DataSource createDataSource() {
-        final String url = "jdbc:postgresql://" + this.dbURL + ":5432/" + this.dbDatabase + "?user=" + this.dbUser +"&password=" + this.dbPassword;
-        final PGSimpleDataSource dataSource = new PGSimpleDataSource();
-        dataSource.setUrl(url);
-        return dataSource;
     }
 
     public Employee create(Employee newEmployee) throws SQLException {
@@ -53,8 +22,8 @@ public class EmployeeRepository {
         PreparedStatement statement = this.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, newEmployee.getName());
         statement.setString(2, newEmployee.getJobName());
-        statement.setString(3, newEmployee.getSalaryGrade());
-        statement.setString(4, newEmployee.getDepartment());
+        statement.setInt(3, newEmployee.getSalaryGrade());
+        statement.setInt(4, newEmployee.getDepartment());
 
         if (statement.executeUpdate() == 0) {
             return null;
@@ -81,8 +50,8 @@ public class EmployeeRepository {
                     resultSet.getLong("id"),
                     resultSet.getString("name"),
                     resultSet.getString("jobName"),
-                    resultSet.getString("salaryGrade"),
-                    resultSet.getString("department")
+                    resultSet.getInt("salaryGrade"),
+                    resultSet.getInt("department")
             );
             employees.add(employee);
         }
@@ -99,8 +68,8 @@ public class EmployeeRepository {
                     resultSet.getLong("id"),
                     resultSet.getString("name"),
                     resultSet.getString("jobName"),
-                    resultSet.getString("salaryGrade"),
-                    resultSet.getString("department")
+                    resultSet.getInt("salaryGrade"),
+                    resultSet.getInt("department")
             );
         }
         return employee;
@@ -116,8 +85,8 @@ public class EmployeeRepository {
         PreparedStatement statement = this.connection.prepareStatement(SQL);
         statement.setString(1, employee.getName());
         statement.setString(2, employee.getJobName());
-        statement.setString(3, employee.getSalaryGrade());
-        statement.setString(4, employee.getDepartment());
+        statement.setInt(3, employee.getSalaryGrade());
+        statement.setInt(4, employee.getDepartment());
         statement.setLong(5, id);
         Employee updatedEmployee = null;
         if (statement.executeUpdate() > 0) {
@@ -137,7 +106,4 @@ public class EmployeeRepository {
         }
         return deletedEmployee;
     }
-
-
-
 }

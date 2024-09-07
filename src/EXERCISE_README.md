@@ -23,6 +23,6 @@ db.database=<Value for PGDATABASE>
 - [x] Create schema and dummy data
 - [x] Create test for the model layer
 - [x] Core specs
-- [ ] Extension; update schema
-- [ ] Extension; specs
-- [ ] Refactor database connection logic & functions
+- [x] Extension; update schema
+- [x] Extension; specs
+- [x] Refactor database connection logic & functions into singelton pattern
