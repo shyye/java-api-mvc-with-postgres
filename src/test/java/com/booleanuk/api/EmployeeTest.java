@@ -17,8 +17,8 @@ public class EmployeeTest {
                 0,
                 "Test",
                 "jobName",
-                "4",
-                "department"
+                1,
+                2
         );
 
         int currentSize = repository.getAll().size();
@@ -34,8 +34,8 @@ public class EmployeeTest {
                 0,
                 "Test",
                 "jobName",
-                "4",
-                "department"
+                2,
+                2
         );
         Employee tmp_employee = repository.create(employee);
         int currentSize = repository.getAll().size();
@@ -50,8 +50,8 @@ public class EmployeeTest {
                 0,
                 "UPDATE TEST",
                 "jobName",
-                "10",
-                "department"
+                2,
+                2
         );
         Employee updatedEmployee = repository.update(6, employee);
         Assertions.assertEquals("UPDATE TEST", updatedEmployee.getName());
